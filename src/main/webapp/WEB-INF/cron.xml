@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+  <cron>
+    <url>/saveStuff</url>
+    <description>saving new favourites rano</description>
+    <schedule>every day 10:00</schedule>
+<timezone>Europe/Prague</timezone>
+    <target>almighty</target>
+  </cron>
+<cron>
+    <url>/saveStuff</url>
+    <description>saving new favourites odpoledne</description>
+    <schedule>every day 18:00</schedule>
+<timezone>Europe/Prague</timezone>
+    <target>almighty</target>
+  </cron>
+<cron>
+    <url>/saveStuff</url>
+    <description>saving new favourites v noci</description>
+    <schedule>every day 02:00</schedule>
+<timezone>Europe/Prague</timezone>
+    <target>almighty</target>
+  </cron>
+</cronentries>
