@@ -13,7 +13,7 @@ case object NecitelnaVecException extends Exception
 
 
 //interni trida
-class VsechnyPrispevkyNaStrance (val prispevky:Iterator[Prispevek], val nextPage:Option[String])
+class VsechnyPrispevkyNaStranceStav (val prispevky:Iterator[Prispevek], val nextPage:Option[String])
 
 class Klubik(maybeId:Option[Int], maybeName:Option[String], maybePretty:Option[String]=None) {
     
@@ -127,7 +127,7 @@ class Klubik(maybeId:Option[Int], maybeName:Option[String], maybePretty:Option[S
     }
 
 
-    private def vsechnyPrispevkyNaStrance(readByWhom:BaseBot, page:String, backwards:Boolean): VsechnyPrispevkyNaStrance = {
+    private def vsechnyPrispevkyNaStrance(readByWhom:BaseBot, page:String, backwards:Boolean): VsechnyPrispevkyNaStranceStav = {
         val c = contentOnPage(readByWhom, page)
         
         //iterator
@@ -152,7 +152,7 @@ class Klubik(maybeId:Option[Int], maybeName:Option[String], maybePretty:Option[S
             Some(nextPageMatch.get.group(1))
         }
                 
-        return new VsechnyPrispevkyNaStrance(moznaOtocene, nextPage)
+        return new VsechnyPrispevkyNaStranceStav(moznaOtocene, nextPage)
     } 
 
     def vsechnyPrispevky(readByWhom:BaseBot, backwardsPage:Option[String]=None) :Iterable[Prispevek]= {
@@ -166,7 +166,7 @@ class Klubik(maybeId:Option[Int], maybeName:Option[String], maybePretty:Option[S
         
         //k tomu si ale musim pamatovat uz receny ID (aby se tam jeden neopakoval dvakrat, protoze na konci/zacatku se obcas neco opakuje)
         //+ potrebuju specialne vyresit bug s posledni stranou s id=0
-        class VsechnyPrispevkyIterator(var stav:VsechnyPrispevkyNaStrance) extends Iterator[Prispevek] {
+        class VsechnyPrispevkyIterator(var stav:VsechnyPrispevkyNaStranceStav) extends Iterator[Prispevek] {
             override def hasNext:Boolean = stav.prispevky.hasNext || stav.nextPage.isDefined || (!backwards && mameLastPagePrispevky)
             
             var usedIDs:Set[Int]=Set[Int]()
