@@ -30,9 +30,9 @@ class LoadFavouritesAndSave extends HttpServlet {
         try10times()
         val all = GAEPrispevek.loadStareNDni(7)
         (Array(1,2,3,4,5,6,7)).foreach {
-            dni=>
+            dni=>               //fakt nevim, co kurva s tim casem
                 val datum = new DateTime().withZone(DateTimeZone.forID("Europe/Prague")).minusDays(dni)
-                val older = all.filter{_.datum.isAfter(datum)}
+                val older = all.filter{_.datum.withZoneRetainFields(DateTimeZone.forID("Europe/Prague")).isAfter(datum)}
                 val nekrizek = older.filter{
                     p=> (!(p.klub.prettyName.startsWith("křížkov") || p.klub.prettyName.startsWith("Křížkov") || p.klub.prettyName.startsWith("Křížek")))
                 }
